@@ -1,0 +1,41 @@
+name: transmission-daemon
+version: 2.84
+icon: snap/files/logo.png
+summary: Lightweight BitTorrent client (daemon backend)
+grade: stable
+confinement: strict
+description: |
+  Transmission is a set of lightweight BitTorrent clients (in GUI, CLI
+  and daemon form). All its incarnations feature a very simple, intuitive
+  interface on top on an efficient, cross-platform back-ends. 
+  This snap only contains the transmission-daemon back-end.
+
+apps:
+  # Configure daemon
+  transmission-daemon:
+    command: usr/bin/transmission-daemon -g $SNAP_COMMON/config -f
+    daemon: simple
+    plugs: [network, network-bind, removable-media]
+    environment:
+      TRANSMISSION_WEB_HOME: $SNAP/usr/share/transmission/web/
+
+parts:
+  # Install required packages. TODO: Use git plugin and compile transmission
+  transmission-daemon:
+    plugin: nil
+    stage-packages:
+      - transmission-daemon
+    stage:
+       # Omiting directories
+       - -etc/transmission-daemon/
+       - -var/lib/transmission-daemon/
+       - -usr/share/doc/
+       - -usr/share/man
+       - -usr/share/icons
+
+  # Copy custom default configuration file, install hook move into writable config dir
+  custom-config:
+    source: snap/files/
+    plugin: dump
+    organize:
+       settings.json: etc/transmission-daemon/settings.json
