@@ -1,4 +1,4 @@
-name: transmission-daemon
+name: transmission-daemon-backend
 version: 2.84
 icon: snap/files/logo.png
 summary: Lightweight BitTorrent client (daemon backend)
