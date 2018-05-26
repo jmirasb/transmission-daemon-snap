@@ -14,7 +14,7 @@
     "dht-enabled": true, 
     "download-dir": "/var/snap/transmission-daemon/common/downloads",
     "download-queue-enabled": true, 
-    "download-queue-size": 1, 
+    "download-queue-size": 4, 
     "encryption": 2, 
     "idle-seeding-limit": 30, 
     "idle-seeding-limit-enabled": false, 
@@ -37,7 +37,7 @@
     "queue-stalled-enabled": true, 
     "queue-stalled-minutes": 30, 
     "ratio-limit": 0, 
-    "ratio-limit-enabled": true, 
+    "ratio-limit-enabled": false, 
     "rename-partial-files": true, 
     "rpc-authentication-required": false, 
     "rpc-bind-address": "0.0.0.0", 
@@ -62,6 +62,6 @@
     "umask": 18, 
     "upload-slots-per-torrent": 14, 
     "utp-enabled": true, 
-    "watch-dir": "/var/snap/transmission-daemon/common/downloads#", 
+    "watch-dir": "/var/snap/transmission-daemon/common/downloads", 
     "watch-dir-enabled": false
 }
