@@ -42,5 +42,7 @@ parts:
 
 # Permissions for hooks
 hooks:
+  install:
+    plugs: [network, network-bind]
   configure:
     plugs: [network, network-bind]
