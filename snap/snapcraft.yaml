@@ -39,3 +39,8 @@ parts:
     plugin: dump
     organize:
        settings.json: etc/transmission-daemon/settings.json
+
+# Permissions for hooks
+hooks:
+  configure:
+    plugs: [network, network-bind]

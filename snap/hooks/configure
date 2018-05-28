@@ -2,25 +2,21 @@
 # Snap configuration hook
 set -e
 
-# Set variables
-CONFIG_FILE=$SNAP_COMMON/config/settings.json
-OPTIONS="download-dir download-queue-size rpc-whitelist rpc-whitelist-enabled \
-         watch-dir watch-dir-enabled"
+CONFIG_FILE="$SNAP_COMMON/.config/settings.json"
 
-change_config () {
-    # Creating configuration file format
-    PARAM=`echo $1 | cut -f1 -d=`
-    VALUE=`echo $1 | cut -f2 -d=`
+# Replace option inside the config file
+refresh_config () {
+    PARAM="$1"
+    VALUE="$2"
     REPLACE_BY="\"$PARAM\": \"$VALUE\", "
 
-    # Check and modify parameter
-    if $(grep -q "\"$PARAM\":" $CONFIG_FILE); then
-        sed "s/\"$PARAM\":.*/$REPLACE_BY/" $CONFIG_FILE >${CONFIG_FILE}.new
-        mv -f ${CONFIG_FILE}.new $CONFIG_FILE 2>/dev/null
-    fi
+    grep -q "\"$PARAM\":" $CONFIG_FILE && sed "s^\"$PARAM\":.*^$REPLACE_BY^" $CONFIG_FILE >${CONFIG_FILE}.new
+    mv -f ${CONFIG_FILE}.new $CONFIG_FILE 2>/dev/null
 }
 
-for opt in $OPTIONS; do
+# Iterate through the config options array
+for opt in `egrep -v '{|}' "$CONFIG_FILE" | sed 's/:.*//g;s/"//g'`; do
     # Use snapctl to get the value registered by the snap set command
-    change_config $opt $(snapctl get $opt)
+    refresh_config $opt $(snapctl get $opt)
 done
+
