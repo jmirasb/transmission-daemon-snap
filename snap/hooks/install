@@ -1,4 +1,4 @@
 #!/bin/sh
-mkdir $SNAP_COMMON/config
-cp $SNAP/etc/transmission-daemon/settings.json $SNAP_COMMON/config/settings.json
-
+mkdir $SNAP_COMMON/.config
+cp $SNAP/etc/transmission-daemon/settings.json $SNAP_COMMON/.config/settings.json
+chmod 644 $SNAP_COMMON/.config/settings.json
