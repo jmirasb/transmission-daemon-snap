@@ -8,7 +8,12 @@ CONFIG_FILE="$SNAP_COMMON/.config/settings.json"
 refresh_config () {
     PARAM="$1"
     VALUE="$2"
-    REPLACE_BY="\"$PARAM\": \"$VALUE\", "
+    # If value is not boolean or a number need to be into a quotes
+    case $VALUE in
+        true|false)  REPLACE_BY="\"$PARAM\": $VALUE, ";;
+        ''|*[!0-9]*) REPLACE_BY="\"$PARAM\": \"$VALUE\", ";;
+        *)           REPLACE_BY="\"$PARAM\": $VALUE, ";;
+    esac
 
     grep -q "\"$PARAM\":" $CONFIG_FILE && sed "s^\"$PARAM\":.*^$REPLACE_BY^" $CONFIG_FILE >${CONFIG_FILE}.new
     mv -f ${CONFIG_FILE}.new $CONFIG_FILE 2>/dev/null
