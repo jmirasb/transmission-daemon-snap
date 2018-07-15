@@ -32,6 +32,7 @@
     "peer-port-random-on-start": false, 
     "peer-socket-tos": "default", 
     "pex-enabled": true, 
+    "pidfile": "/var/snap/transmission-daemon-backend/common/pid", 
     "port-forwarding-enabled": true, 
     "preallocation": 1, 
     "prefetch-enabled": 0, 
@@ -66,5 +67,5 @@
     "upload-slots-per-torrent": 14, 
     "utp-enabled": true, 
     "watch-dir": "/var/snap/transmission-daemon/common/downloads", 
-    "watch-dir-enabled": false
+    "watch-dir-enabled": false 
 }

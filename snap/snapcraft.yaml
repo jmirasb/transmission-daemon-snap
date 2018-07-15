@@ -13,7 +13,7 @@ description: |
 apps:
   # Configure daemon
   transmission-daemon:
-    command: usr/bin/transmission-daemon -g $SNAP_COMMON/.config -f
+    command: usr/bin/transmission-daemon -x $SNAP_COMMON/pid -g $SNAP_COMMON/.config -f
     daemon: simple
     plugs: [network, network-bind, removable-media, mount-observe]
     environment:
