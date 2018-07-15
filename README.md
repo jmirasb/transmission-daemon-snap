@@ -35,10 +35,9 @@ to configure it. Remember stop server before change any configuration parameter 
 
    ### Removable media
 
-The interface providing the ability to access removable media or home directory is not automatically connected upon install, so if you'd like to use this directories in the config file for download/watch/incomplete directories, you need to give the snap permission to access removable media/home by connecting that interface:
+The interface providing the ability to access removable media directory is not automatically connected upon install, so if you'd like to use it in the config file for download/watch/incomplete directories, you need to give the snap permission to access removable media by connecting that interface:
 
     $ sudo snap connect transmission-daemon-backend:removable-media
-    $ sudo snap connect transmission-daemon-backend:home
 
 ## Issues
 
