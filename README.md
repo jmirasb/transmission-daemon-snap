@@ -29,8 +29,6 @@ to configure it. Remember stop server before change any configuration parameter 
 
       $ sudo systemctl stop snap.transmission-daemon-backend.transmission-daemon.service
 
-   BEWARE:
-
 #### To make the web server accessible without configuration when it's installed, all security parameters are deactivated in default configuration file. So, is recommended reconfigure server and activate IP filter or user/password authentication, for instance:
      
      $ snap set transmission-daemon-backend rpc-whitelist-enabled=true rpc-whitelist="127.0.0.1;1.0.0.*"
