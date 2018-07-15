@@ -33,6 +33,10 @@ to configure it. Remember stop server before change any configuration parameter 
      
      $ snap set transmission-daemon-backend rpc-whitelist-enabled=true rpc-whitelist="127.0.0.1;1.0.0.*"
 
+#### Be careful with configuration parameters because if one parameter is wrong the server will not start. If that happens you can see systemd journal with "journalctl -xe" to report the problem or you can restore the default configuration:
+
+     $ cp /snap/transmission-daemon-backend/current/etc/transmission-daemon/settings.json /var/snap/transmission-daemon-backend/common/.config/settings.json
+
    ### Removable media
 
 The interface providing the ability to access removable media directory is not automatically connected upon install, so if you'd like to use it in the config file for download/watch/incomplete directories, you need to give the snap permission to access removable media by connecting that interface:
