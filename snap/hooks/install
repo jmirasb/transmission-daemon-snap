@@ -1,9 +1,12 @@
 #!/bin/sh
+set -e
 
-# Moving config file to writable dir
+# Moving config file to writable dir and create config cache
+DEFAULT_CONFIG=$SNAP/etc/transmission-daemon/settings.json
 CONFIG_FILE=$SNAP_COMMON/.config/settings.json
 mkdir -p $SNAP_COMMON/.config
-cp $SNAP/etc/transmission-daemon/settings.json $SNAP_COMMON/.config/settings.json
+cp $DEFAULT_CONFIG $CONFIG_FILE
+cp $DEFAULT_CONFIG $CONFIG_FILE.cache
 
 # Register config values with snapctl
 for opt in `egrep -v '{|}' "$CONFIG_FILE" | sed 's^[ ",]^^g;s^:^=^'`; do

@@ -14,6 +14,7 @@ apps:
   # Configure daemon
   transmission-daemon:
     command: usr/bin/transmission-daemon -x $SNAP_COMMON/pid -g $SNAP_COMMON/.config -f
+    post-stop-command: usr/bin/update-config
     daemon: simple
     plugs: [network, network-bind, removable-media, mount-observe]
     environment:
@@ -33,12 +34,13 @@ parts:
        - -usr/share/man
        - -usr/share/icons
 
-  # Copy custom default configuration file, install hook move into writable config dir
+  # Copy default config and update config script, install hook copy configuration file into writable config dir
   custom-config:
     source: snap/files/
     plugin: dump
     organize:
        settings.json: etc/transmission-daemon/settings.json
+       update-config: usr/bin/update-config
 
 # Permissions for hooks
 hooks:

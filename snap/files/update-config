@@ -1,0 +1,19 @@
+#!/bin/sh
+
+CONFIG_FILE=$SNAP_COMMON/.config/settings.json
+CONFIG_FILE_CACHE=$CONFIG_FILE.cache
+
+# Read changes in config file
+for opt in `diff $CONFIG_FILE_CACHE $CONFIG_FILE | grep -e '>' | sed 's^[ ",>]^^g;s^:^="^;s^$^"^'`; do
+    if test -z "$OPTIONS"; then
+        OPTIONS="$opt"
+    else
+        OPTIONS="$OPTIONS $opt"
+    fi
+done
+
+# Update changed configuration parameters and move new configuration to cached file
+if ! test -z "$OPTIONS"; then
+    snapctl set $OPTIONS
+    cp $CONFIG_FILE $CONFIG_FILE_CACHE
+fi

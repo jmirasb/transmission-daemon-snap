@@ -2,7 +2,7 @@
 # Snap configuration hook
 set -e
 
-CONFIG_FILE="$SNAP_COMMON/.config/settings.json"
+CONFIG_FILE=$SNAP_COMMON/.config/settings.json
 
 # Replace option inside the config file
 refresh_config () {
@@ -25,3 +25,7 @@ for opt in `egrep -v '{|}' "$CONFIG_FILE" | sed 's/:.*//g;s/"//g'`; do
     refresh_config $opt $(snapctl get $opt)
 done
 
+# The last parameter must be without comma, remove if exist
+sed '$d' $CONFIG_FILE | sed '$s^,^^' >${CONFIG_FILE}.new
+echo "}" >>${CONFIG_FILE}.new
+mv -f ${CONFIG_FILE}.new $CONFIG_FILE 2>/dev/null
