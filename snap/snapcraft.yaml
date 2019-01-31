@@ -1,6 +1,6 @@
 name: transmission-daemon-backend
 version: 2.84
-icon: snap/files/logo.png
+icon: files/logo.png
 summary: Lightweight BitTorrent client (daemon backend)
 grade: stable
 confinement: strict
@@ -36,7 +36,7 @@ parts:
 
   # Copy default config and update config script, install hook copy configuration file into writable config dir
   custom-config:
-    source: snap/files/
+    source: files/
     plugin: dump
     organize:
        settings.json: etc/transmission-daemon/settings.json
