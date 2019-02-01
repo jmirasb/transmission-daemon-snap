@@ -1,9 +1,10 @@
 name: transmission-daemon-backend
-version: 2.84
+version: '2.94'
 base: core18
 icon: files/logo.png
 summary: Lightweight BitTorrent client (daemon backend)
 grade: stable
+# architectures: [armhf, amd64]
 confinement: strict
 description: |
   Transmission is a set of lightweight BitTorrent clients (in GUI, CLI
@@ -22,11 +23,42 @@ apps:
       TRANSMISSION_WEB_HOME: $SNAP/usr/share/transmission/web/
 
 parts:
-  # Install required packages. TODO: Use git plugin and compile transmission
+  # Install required packages.
   transmission-daemon:
-    plugin: nil
+    plugin: cmake
+    source: https://github.com/transmission/transmission.git
+    source-type: git
+    source-branch: 2.9x
+    source-depth: 1
+    configflags:
+      - -DCMAKE_INSTALL_PREFIX=/
+      - -DENABLE_DAEMON=1
+      - -DENABLE_GTK=0
+      - -DENABLE_QT=0
+      - -DENABLE_CLI=0
+      - -DINSTALL_DOC=0
+      - -DENABLE_LIGHTWEIGHT=0
+      - -DENABLE_TESTS=0
+      - -DENABLE_UTILS=0
+      - -DENABLE_UTP=1
+      - -DENABLE_NLS=1
+      - -DINSTALL_LIB=0
+
+    build-packages:
+      - libcurl4-openssl-dev
+      - libevent-dev
+      - pkg-config
+      - zlib1g-dev
+      - libssl-dev
+      - libminiupnpc-dev
+      - intltool
+
     stage-packages:
-      - transmission-daemon
+      - libcurl4
+      - libevent-2.1-6
+      - zlib1g
+      - libminiupnpc10
+
     stage:
        # Omiting directories
        - -etc/transmission-daemon/
