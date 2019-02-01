@@ -1,5 +1,6 @@
 name: transmission-daemon-backend
 version: 2.84
+base: core18
 icon: files/logo.png
 summary: Lightweight BitTorrent client (daemon backend)
 grade: stable
