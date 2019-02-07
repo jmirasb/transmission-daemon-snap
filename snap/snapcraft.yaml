@@ -15,12 +15,12 @@ description: |
 apps:
   # Configure daemon
   transmission-daemon:
-    command: usr/bin/transmission-daemon -x $SNAP_COMMON/pid -g $SNAP_COMMON/.config -f
-    post-stop-command: usr/bin/update-config
+    command: bin/transmission-daemon -x $SNAP_COMMON/pid -g $SNAP_COMMON/.config -f
+    post-stop-command: bin/update-config
     daemon: simple
     plugs: [network, network-bind, removable-media, mount-observe]
     environment:
-      TRANSMISSION_WEB_HOME: $SNAP/usr/share/transmission/web/
+      TRANSMISSION_WEB_HOME: $SNAP/share/transmission/web/
 
 parts:
   # Install required packages.
@@ -56,12 +56,16 @@ parts:
       - libminiupnpc10
 
     stage:
-      # Omiting directories
-      - -etc/transmission-daemon/
-      - -var/lib/transmission-daemon/
-      - -usr/share/doc/
-      - -usr/share/man
-      - -usr/share/icons
+      # Omiting directories and files
+      - -bin/transmission-create
+      - -bin/transmission-edit
+      - -bin/transmission-show
+      - -etc
+      - -var
+      - -usr/share
+      - -share/doc
+      - -share/man
+      - -share/icons
 
   # Copy default config and update config script, install hook copy configuration file into writable config dir
   custom-config:
@@ -69,7 +73,7 @@ parts:
     plugin: dump
     organize:
        settings.json: etc/transmission-daemon/settings.json
-       update-config: usr/bin/update-config
+       update-config: bin/update-config
 
 # Permissions for hooks
 hooks:
