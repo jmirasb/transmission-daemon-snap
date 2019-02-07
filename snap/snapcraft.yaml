@@ -25,26 +25,21 @@ apps:
 parts:
   # Install required packages.
   transmission-daemon:
-    plugin: cmake
+    plugin: autotools
     source: https://github.com/transmission/transmission.git
     source-type: git
     source-branch: 2.9x
     source-depth: 1
     configflags:
-      - -DCMAKE_INSTALL_PREFIX=/
-      - -DENABLE_DAEMON=1
-      - -DENABLE_GTK=0
-      - -DENABLE_QT=0
-      - -DENABLE_CLI=0
-      - -DINSTALL_DOC=0
-      - -DENABLE_LIGHTWEIGHT=0
-      - -DENABLE_TESTS=0
-      - -DENABLE_UTILS=0
-      - -DENABLE_UTP=1
-      - -DENABLE_NLS=1
-      - -DINSTALL_LIB=0
-
+      - --prefix=/
+      - --enable-daemon
+      - --disable-cli
+      - --disable-lightweight
+      - --enable-utp
+      - --enable-nls
     build-packages:
+      - libnatpmp-dev
+      - libxml2-dev
       - libcurl4-openssl-dev
       - libevent-dev
       - pkg-config
@@ -54,18 +49,19 @@ parts:
       - intltool
 
     stage-packages:
+      - libnatpmp1
       - libcurl4
       - libevent-2.1-6
       - zlib1g
       - libminiupnpc10
 
     stage:
-       # Omiting directories
-       - -etc/transmission-daemon/
-       - -var/lib/transmission-daemon/
-       - -usr/share/doc/
-       - -usr/share/man
-       - -usr/share/icons
+      # Omiting directories
+      - -etc/transmission-daemon/
+      - -var/lib/transmission-daemon/
+      - -usr/share/doc/
+      - -usr/share/man
+      - -usr/share/icons
 
   # Copy default config and update config script, install hook copy configuration file into writable config dir
   custom-config:
