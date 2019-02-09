@@ -54,6 +54,7 @@ parts:
       - libevent-2.1-6
       - zlib1g
       - libminiupnpc10
+      - libdb5.3
 
     stage:
       # Omiting directories and files
